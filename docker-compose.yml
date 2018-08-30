@@ -1,0 +1,42 @@
+version: '3'
+
+services:
+    httpd:
+      build: .
+      image: primus852/dockerlamp-extended:latest
+      ports:
+        - 80:80
+      restart: always
+      networks:
+        - default
+      tmpfs:
+        - /var/www/html/var/cache:exec,mode=777
+        - /var/www/html/var/logs:exec,mode=777
+        - /var/www/html/var/sessions:exec,mode=777
+      volumes:
+        - ./project:/var/www/html
+        - ./apache/000-default.conf:/etc/apache2/sites-available/000-default.conf
+        - ./logs/apache/access.log:/var/log/apache2/access.log
+        - ./logs/apache/error.log:/var/log/apache2/error.log
+    mysql:
+      image: mysql:5.7
+      command: --max_allowed_packet=32505856
+      environment:
+        MYSQL_DATABASE: project
+        MYSQL_USER: admin
+        MYSQL_PASSWORD: ABcd1234
+        MYSQL_ROOT_PASSWORD: docker
+      ports:
+        - 3306:3306
+      networks:
+        - default
+      expose:
+        - "3306"
+      volumes:
+        - ./logs/mysql:/var/log/mysql
+        # Put .sql / .sql.gz to this folder to create new db every time
+        - ./data:/docker-entrypoint-initdb.d
+        # or use persistent Database
+        # - ./mysql:/var/lib/mysql
+networks:
+    default:
