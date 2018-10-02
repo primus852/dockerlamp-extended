@@ -18,6 +18,25 @@ services:
         - ./apache/000-default.conf:/etc/apache2/sites-available/000-default.conf
         - ./logs/apache/access.log:/var/log/apache2/access.log
         - ./logs/apache/error.log:/var/log/apache2/error.log
+    elastic:
+      container_name: elastic
+      image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.4.1
+      environment:
+        - cluster.name=docker-cluster
+        - bootstrap.memory_lock=true
+        - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      ports:
+        - 9200:9200
+      networks:
+        - default
+      expose:
+        - "9200"
+      ulimits:
+        memlock:
+            soft: -1
+            hard: -1
+      volumes:
+        - ./elastic:/usr/share/elasticsearch/data
     mysql:
       image: mysql:5.7
       command: --max_allowed_packet=32505856
@@ -34,9 +53,6 @@ services:
         - "3306"
       volumes:
         - ./logs/mysql:/var/log/mysql
-        # Put .sql / .sql.gz to this folder to create new db every time
         - ./data:/docker-entrypoint-initdb.d
-        # or use persistent Database
-        # - ./mysql:/var/lib/mysql
 networks:
     default:
