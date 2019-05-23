@@ -78,7 +78,7 @@ RUN apt-get update && apt-get install -yq \
 	php-pear \
 	php7.2-imap
 RUN cd
-RUN pecl download mailparse && tar -xvf mailparse-3.0.2.tgz && cd mailparse-3.0.2 && phpize7.2 && ./configure && sed -i 's/#if\s!HAVE_MBSTRING/#ifndef MBFL_MBFILTER_H/' ./mailparse.c && make && mv modules/mailparse.so /usr/lib/php/20170718/
+RUN pecl download mailparse && tar -xvf mailparse-3.0.3.tgz && cd mailparse-3.0.3 && phpize7.2 && ./configure && sed -i 's/#if\s!HAVE_MBSTRING/#ifndef MBFL_MBFILTER_H/' ./mailparse.c && make && mv modules/mailparse.so /usr/lib/php/20170718/
 RUN echo "extension=mailparse.so" | tee /etc/php/7.2/mods-available/mailparse.ini
 RUN phpenmod mailparse
 
