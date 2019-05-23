@@ -36,12 +36,15 @@ RUN apt-get update && apt-get install -yq \
     ghostscript \
     mysql-client \
     iputils-ping \
+    node-gyp \
+    nodejs-dev \
+    libssl1.0-dev \
     nodejs \
     npm \
     zip \
     unzip \
     locales \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
+    && apt-get autoremove
 
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
