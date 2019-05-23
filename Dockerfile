@@ -91,8 +91,7 @@ RUN apt install -yq \
 	fontconfig \
 	libxrender1 \
     libxext6
-RUN wget https://downloads.wkhtmltopdf.org/0.12/0.12.5/wkhtmltox_0.12.5-1.bionic_amd64.deb
-RUN dpkg -i wkhtmltox_0.12.5-1.bionic_amd64.deb
+RUN wget https://downloads.wkhtmltopdf.org/0.12/0.12.5/wkhtmltox_0.12.5-1.bionic_amd64.deb && dpkg -i wkhtmltox_0.12.5-1.bionic_amd64.deb
 
 WORKDIR /var/www/html
 
