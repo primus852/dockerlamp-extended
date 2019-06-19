@@ -43,8 +43,7 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -yq \
     npm \
     zip \
     unzip \
-    locales \
-    hugo && apt-get autoremove
+    locales && apt-get autoremove
 
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
