@@ -44,7 +44,7 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -yq \
     zip \
     unzip \
     locales \
-    && apt-get autoremove
+    hugo && apt-get autoremove
 
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
