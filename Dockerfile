@@ -1,6 +1,6 @@
 FROM ubuntu:18.04
 
-MAINTAINER t3kit
+MAINTAINER primus852
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -95,5 +95,8 @@ RUN apt install -yq \
 RUN wget https://downloads.wkhtmltopdf.org/0.12/0.12.5/wkhtmltox_0.12.5-1.bionic_amd64.deb && dpkg -i wkhtmltox_0.12.5-1.bionic_amd64.deb
 
 WORKDIR /var/www/html
+
+# Install Docsify
+RUN npm i docsify-cli -g
 
 CMD ["apache2ctl", "-D", "FOREGROUND"]
